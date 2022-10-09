@@ -13,5 +13,8 @@
   "author": "",
   "license": "0BSD",
   "homepage": "https://github.com/milenamatos/capital_gains#readme",
-  "keywords": []
+  "keywords": [],
+  "dependencies": {
+    "pkg": "^5.8.0"
+  }
 }
