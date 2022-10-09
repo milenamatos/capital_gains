@@ -1,4 +1,4 @@
-const calculateTaxes = require('./src/taxes');
+const { calculateTaxes } = require('./src/taxes');
 const readline = require("readline")
 
 const rl = readline.createInterface({
@@ -25,8 +25,4 @@ rl.on('line', (line) => {
   } catch (e) {
     console.log(e);
   }
-});
-
-rl.once('close', () => {
-  start();
 });

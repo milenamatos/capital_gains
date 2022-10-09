@@ -14,12 +14,15 @@ function calculate(operations) {
   return operations.map((operation) => {
     const { operation: type, "unit-cost": cost, quantity } = operation;
     const formattedOperation = { type, cost, quantity };
-    
+
     stocks.registerOperation(formattedOperation);
-    
+
     return { tax: stocks.tax };
   });
 };
 
 
-module.exports = calculateTaxes;
+module.exports = {
+  calculateTaxes,
+  calculate,
+};

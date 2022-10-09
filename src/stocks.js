@@ -21,10 +21,10 @@ let Stocks = class {
 
     if (cost < this.average) {
       this.calculateLoss();
-    } 
+    }
     else {
       this.calculateProfit();
-    }   
+    }
 
     if (this.loss > 0 && this.profit > 0) {
       this.deduceProfit();
@@ -66,7 +66,7 @@ let Stocks = class {
 
   deduceProfit() {
     const higherProfit = this.profit >= this.loss;
-    const amountToDeduce = higherProfit ? this.loss : this.loss - this.profit;
+    const amountToDeduce = higherProfit ? this.loss : this.profit;
     this.profit -= amountToDeduce;
     this.loss -= amountToDeduce;
   }
@@ -75,7 +75,7 @@ let Stocks = class {
     this.tax = 0;
     this.currentOperation = operation;
     const { type } = operation;
-    
+
     if (this.operations[type] === this.operations.sell) {
       this.sell();
       this.calculateTax();
