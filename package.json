@@ -1,0 +1,17 @@
+{
+  "name": "capital_gains",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/milenamatos/capital_gains.git"
+  },
+  "author": "",
+  "license": "0BSD",
+  "homepage": "https://github.com/milenamatos/capital_gains#readme",
+  "keywords": []
+}
