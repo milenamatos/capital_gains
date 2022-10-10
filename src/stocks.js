@@ -1,4 +1,5 @@
 const OPERATIONS = require('./operations');
+const roundTwoDecimals = require('./utils/round');
 
 let Stocks = class {
   constructor() {
@@ -17,13 +18,13 @@ let Stocks = class {
   }
 
   sell() {
-    const { cost, quantity } = this.currentOperation;
+    const { quantity } = this.currentOperation;
 
-    if (cost < this.average) {
-      this.calculateLoss();
+    if (this.hasProfit()) {
+      this.calculateProfit();
     }
     else {
-      this.calculateProfit();
+      this.calculateLoss();
     }
 
     if (this.loss > 0 && this.profit > 0) {
@@ -33,34 +34,46 @@ let Stocks = class {
     this.quantity -= quantity;
   }
 
-  calculateNewAverage() {
+  hasProfit() {
+    return this.currentOperation.cost > this.average;
+  }
+
+  totalAmount() {
     const { cost, quantity } = this.currentOperation;
 
-    this.average = ((this.quantity * this.average) + (quantity * cost)) / (this.quantity + quantity);
+    return roundTwoDecimals(quantity * cost);
+  }
+
+  calculateNewAverage() {
+    const { quantity } = this.currentOperation;
+
+    const newAverage = ((this.quantity * this.average) + this.totalAmount()) / (this.quantity + quantity);
+
+    this.average = roundTwoDecimals(newAverage)
+  }
+
+  currentOperationResult() {
+    const { cost, quantity } = this.currentOperation;
+    const amount = Math.abs(cost - this.average) * quantity;
+    
+    return roundTwoDecimals(amount);
   }
 
   calculateLoss() {
-    const { cost, quantity } = this.currentOperation;
-
-    this.loss += (this.average - cost) * quantity;
+    this.loss += this.currentOperationResult();
     this.profit = 0;
   }
 
   calculateProfit() {
-    const { cost, quantity } = this.currentOperation;
-
-    this.profit = (cost - this.average) * quantity;
+    this.profit = this.currentOperationResult();
   }
 
   calculateTax() {
     const taxPercentange = 0.2;
     const maxProfit = 20000;
 
-    const { cost, quantity } = this.currentOperation;
-    const totalAmount = cost * quantity;
-
-    if (totalAmount > maxProfit && cost > this.average) {
-      this.tax = (this.profit * taxPercentange).toFixed(2);
+    if (this.totalAmount() > maxProfit && this.hasProfit()) {
+      this.tax = roundTwoDecimals(this.profit * taxPercentange);
     }
   }
 

@@ -60,9 +60,10 @@ Para rodar os testes do projeto basta executar os seguintes comandos:
 
 # Arquitetura e organização
 
-Este projeto é composto apenas pelo arquivo *index.js*, que fica responsável por ler os dados de input e formatar o JSON, e outros 3 arquivos contidos no diretório *src*:
+Este projeto é composto apenas pelo arquivo *index.js*, que fica responsável por ler os dados de input e formatar o JSON, e outros 4 arquivos contidos no diretório *src*:
 
 - **index.js**: Como mencionado, este arquivo utiliza a lib "*readlin*e" (única no projeto todo) para auxiliar na leitura das linhas digitas no terminal (entrada padrão stdin). Para cada linha digitada, converte para JSON e salva em listas, para iniciar o processo posteriormente.
+- **src/utils/round.js**: Arquivo auxiliar para arrendondar valores em 2 casas decimais.
 - **src/operations.js**:  Arquivo auxiliar que mapeia os tipos aceitos de operações (*sell* e *buy*). 
 - **src/taxes.js**: O processo inicia por esse arquivo, com auxílio de dois loops, ele itera pelas listas, e nos objetos de cada lista, chama a função que registra a operação e retorna o imposto calculado. Para cada lista, é printado na tela os impostos retornados.
 - **src/stocks.js**: É o principal arquivo do projeto, se trata da classe "Stocks" (ações) que controla as operações de ações e realiza todos os cálculos necessários. Para cara lista de operações, é instanciado um novo objeto Stocks. Ficam salvos nesse objeto as seguintes informações: 

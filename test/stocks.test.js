@@ -152,7 +152,7 @@ describe('Stocks', () => {
       });
 
       it('calculates correct tax', () => {
-        expect(stocks.tax).toEqual("10000.00");
+        expect(stocks.tax).toEqual(10000);
       });
     });
   });

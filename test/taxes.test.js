@@ -6,7 +6,7 @@ const operations = [[
   { "operation": "sell", "unit-cost": 15.00, "quantity": 50 }
 ]];
 
-const result = [{ "tax": 0 }, { "tax": 0 }, { "tax": 0 }];
+const result = [{ "tax": "0.00" }, { "tax": "0.00" }, { "tax": "0.00" }];
 
 describe('Taxes', () => {
   describe('calculateTaxes', () => {

@@ -17,7 +17,7 @@ function calculate(operations) {
 
     stocks.registerOperation(formattedOperation);
 
-    return { tax: stocks.tax };
+    return { tax: stocks.tax.toFixed(2) };
   });
 };
 
