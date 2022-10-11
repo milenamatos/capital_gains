@@ -15,7 +15,7 @@ Exemplo de entrada:
 
 ## Rodando manualmente
 
-Para rodar manualmente você vai precisar ter o Node e o NPM instalado em sua máquina: 
+Para rodar manualmente é necessário ter o Node e o NPM instalados: 
 
 - Link para download: https://nodejs.org/en/download/
 
@@ -47,7 +47,7 @@ node index.js
 
 ## Rodando com Docker
 
-Você vai precisar ter o Docker e o Docker Compose instalados na sua máquina. Os links para download e instalação são:
+Para rodar com Docker, é necessário ter o Docker e o Docker Compose instalados. Os links para download e instalação são:
 - Docker: https://docs.docker.com/engine/install/
 - Docker Compose: https://docs.docker.com/compose/install/
 
