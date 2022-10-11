@@ -13,23 +13,57 @@ Exemplo de entrada:
 
 # Como rodar o projeto
 
-## Passo 1: Fazer o build da aplicação
+## Rodando manualmente
 
+Para rodar manualmente você vai precisar ter o Node e o NPM instalado em sua máquina: 
+
+- Link para download: https://nodejs.org/en/download/
+
+Em seguida basta executar os seguintes comandos no terminal, na raiz do projeto:
+
+### Passo 1: Instalar os pacotes
 ```
-docker build . -t capital-gains
+npm install
 ```
 
-## Passo 2: Executar
+### Passo 2: Executar
 
 É possível executar a aplicação de duas formas: 
 
-- Passando um arquivo *.txt* que contém as listas de operações. 
+- Passando um arquivo *.txt* que contém as listas de operações:
+
+```
+node index.js < input.txt
+```
+
+**OBS**: Deve ser colocado no final do arquivo 2 linhas em branco, para que aplicação reconheça a última linha vazia e inicie os cálculos. Existe um arquivo **input.txt** no projeto, contendo 3 listas, disponível para testes.
+
+- Digitando as operações no terminal:
+
+```
+node index.js
+<lista_de_operacoes>
+```
+
+## Rodando com Docker
+
+Você vai precisar ter o Docker e o Docker Compose instalados na sua máquina. Os links para download e instalação são:
+- Docker: https://docs.docker.com/engine/install/
+- Docker Compose: https://docs.docker.com/compose/install/
+
+### Passo 1: Executar
+
+Para fazer o build e executar o projeto pela primeira vez, basta executar apenas um comando no terminal (seguido dos inputs), na raiz do projeto. Para as seguintes execuções, será utilizado o mesmo comando:
+
+`docker-compose run capital-gains`
+
+Este comando deve ser acompanhado dos dados de input, exatamente como é feito na execução manual: **passando um arquivo .txt** ou **digitando as operações no terminal**. E as mesmas condições se aplicam. Exemplo:
+
+- Passando um arquivo *.txt* que contém as listas de operações:
 
 ```
 docker-compose run capital-gains < input.txt
 ```
-
-**OBS**: Deve ser colocado no final do arquivo 2 linhas em branco, para que aplicação reconheça a última linha vazia e inicie os cálculos. Existe um arquivo **input.txt** no projeto, contendo 3 listas, disponível para testes.
 
 - Digitando as operações no terminal:
 
@@ -38,18 +72,25 @@ docker-compose run capital-gains
 <lista_de_operacoes>
 ```
 
-
-**OBS**: Em ambos os casos sempre deve ser passado **uma** lista por linha. 
-
 # Testando o projeto
 
 Para rodar os testes do projeto basta executar os seguintes comandos:
 
-1. - `docker-compose run capital-gains bash`
-2. - `npm run test`
+1. **Apenas se estiver rodando o projeto com Docker**, execute este comando primeiro para acessar o container: 
+    ```
+    docker-compose run capital-gains bash
+    ```
 
-      ou
-   - `npm run test:coverage` para obter dados da cobertura
+2. Escolha um dos seguintes comandos para rodar os testes:
+    ```
+    npm run test
+    ```
+    ou para obter dados da cobertura:
+
+    ```
+    npm run test:coverage
+    ```
+
 
 
 # Tecnologias utilizadas
