@@ -1,12 +1,13 @@
 import { calculateTaxes, calculate } from '../src/taxes';
 
 const operations = [[
-  { "operation": "buy", "unit-cost": 10.00, "quantity": 100 },
-  { "operation": "sell", "unit-cost": 15.00, "quantity": 50 },
-  { "operation": "sell", "unit-cost": 15.00, "quantity": 50 }
+  {"operation":"buy", "unit-cost":10, "quantity": 10000, "ticker":"AAPL"},
+  {"operation":"buy", "unit-cost":15, "quantity": 10000, "ticker":"MANU"},
+  {"operation":"sell", "unit-cost":30, "quantity": 10000, "ticker":"MANU"},
+  {"operation":"sell", "unit-cost":5, "quantity": 10000, "ticker":"AAPL"}
 ]];
 
-const result = [{ "tax": "0.00" }, { "tax": "0.00" }, { "tax": "0.00" }];
+const result = [{"tax": "0.00"}, {"tax": "0.00"}, {"tax":"30000.00"}, {"tax":"0.00"}];
 
 describe('Taxes', () => {
   describe('calculateTaxes', () => {

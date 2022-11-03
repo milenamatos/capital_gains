@@ -3,22 +3,24 @@ const roundTwoDecimals = require('./utils/round');
 
 let Stocks = class {
   constructor() {
-    this.quantity = 0;
-    this.average = 0;
+    this.quantity = {};
+    this.average = {};
     this.loss = 0;
     this.profit = 0;
     this.currentOperation = {};
-    this.operations = OPERATIONS;
+    this.operationsType = OPERATIONS;
     this.tax = 0;
   }
 
   buy() {
     this.calculateNewAverage();
-    this.quantity += this.currentOperation.quantity;
+
+    const { ticker, quantity } = this.currentOperation;
+    this.quantity[ticker] += quantity;
   }
 
   sell() {
-    const { quantity } = this.currentOperation;
+    const { quantity, ticker } = this.currentOperation;
 
     if (this.hasProfit()) {
       this.calculateProfit();
@@ -31,11 +33,13 @@ let Stocks = class {
       this.deduceProfit();
     }
 
-    this.quantity -= quantity;
+    this.quantity[ticker] -= quantity;
   }
 
   hasProfit() {
-    return this.currentOperation.cost > this.average;
+    const { ticker } = this.currentOperation;
+     
+    return this.currentOperation.cost > this.average[ticker];
   }
 
   totalAmount() {
@@ -45,16 +49,19 @@ let Stocks = class {
   }
 
   calculateNewAverage() {
-    const { quantity } = this.currentOperation;
+    const { quantity, ticker } = this.currentOperation;
+    
+    const tickerAverage = this.average[ticker];
+    const quantityAverage = this.quantity[ticker];
 
-    const newAverage = ((this.quantity * this.average) + this.totalAmount()) / (this.quantity + quantity);
+    const newAverage = ((quantityAverage * tickerAverage) + this.totalAmount()) / (quantityAverage + quantity);
 
-    this.average = roundTwoDecimals(newAverage)
+    this.average[ticker] = roundTwoDecimals(newAverage)
   }
 
   currentOperationResult() {
-    const { cost, quantity } = this.currentOperation;
-    const amount = Math.abs(cost - this.average) * quantity;
+    const { cost, quantity, ticker } = this.currentOperation;
+    const amount = Math.abs(cost - this.average[ticker]) * quantity;
     
     return roundTwoDecimals(amount);
   }
@@ -87,12 +94,20 @@ let Stocks = class {
   registerOperation(operation) {
     this.tax = 0;
     this.currentOperation = operation;
-    const { type } = operation;
+    const { type, ticker } = operation;
+   
+    if (!this.quantity[ticker]) {
+      this.quantity[ticker] = 0;
+    }
 
-    if (this.operations[type] === this.operations.sell) {
+    if (!this.average[ticker]) {
+      this.average[ticker] = 0;
+    }
+
+    if (this.operationsType[type] === this.operationsType.sell) {
       this.sell();
       this.calculateTax();
-    } else if (this.operations[type] === this.operations.buy) {
+    } else if (this.operationsType[type] === this.operationsType.buy) {
       this.buy();
     }
   }

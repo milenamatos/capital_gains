@@ -12,15 +12,14 @@ function calculate(operations) {
   let stocks = new Stocks();
 
   return operations.map((operation) => {
-    const { operation: type, "unit-cost": cost, quantity } = operation;
-    const formattedOperation = { type, cost, quantity };
+    const { operation: type, "unit-cost": cost, quantity, ticker } = operation;
+    const formattedOperation = { type, cost, quantity, ticker };
 
     stocks.registerOperation(formattedOperation);
 
     return { tax: stocks.tax.toFixed(2) };
   });
 };
-
 
 module.exports = {
   calculateTaxes,
